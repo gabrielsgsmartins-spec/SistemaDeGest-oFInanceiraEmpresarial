@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace SistemaDeGestãoFinanceiraEmpresarial.Models
+namespace SistemaDeGestãoFinanceiraEmpresarial
 {
-    public class DepartamentoModel : Controller
+    public class DepartamentoModel
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public int Id { get; set; }
+        public string Departamento { get; set; } = string.Empty;
+        public string Codigo { get; set; } = string.Empty;
+        public string Descricao { get; set; } = string.Empty;
+        public bool Ativo { get; set; } = true;
     }
+
 }

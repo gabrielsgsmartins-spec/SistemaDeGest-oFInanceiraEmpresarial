@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace SistemaDeGestãoFinanceiraEmpresarial.Enum
+namespace SistemaDeGestãoFinanceiraEmpresarial.Enums
 {
-    public class StatusContaEnum : Controller
+    public enum StatusContaEnum
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        Pendente = 1,
+        AguardandoAprovacao = 2,
+        Aprovada = 3,
+        Vencida = 4,
+        Paga = 5,
+        Cancelada = 6
     }
 }

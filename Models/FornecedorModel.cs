@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace SistemaDeGestãoFinanceiraEmpresarial.Models
+namespace SistemaDeGestãoFinanceiraEmpresarial
 {
     public class FornecedorModel
     {

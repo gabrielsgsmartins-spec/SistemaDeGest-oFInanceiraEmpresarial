@@ -1,6 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using SistemaDeGestãoFinanceiraEmpresarial.Enums;
 
-namespace SistemaFinanceiro.Models
+
+namespace SistemaDeGestãoFinanceiraEmpresarial
 {
     public class Fornecedor
     {
