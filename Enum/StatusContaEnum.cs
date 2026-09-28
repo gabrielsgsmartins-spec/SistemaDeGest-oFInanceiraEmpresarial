@@ -1,7 +1,4 @@
-﻿using SistemaDeGestãoFinanceiraEmpresarial;
-using System.ComponentModel.DataAnnotations;
-
-namespace SistemaGestaoFinanceiraEmpresarial.Models
+﻿namespace SistemaGestaoFinanceiraEmpresarial.Enums
 {
     public enum StatusContaEnum
     {

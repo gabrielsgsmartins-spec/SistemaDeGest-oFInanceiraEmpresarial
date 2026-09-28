@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemaDeGestaoFinanceiraEmpresarial.Data;
-using SistemaGestaoFinanceiraEmpresarial.Data;
 using SistemaGestaoFinanceiraEmpresarial.Models;
 using SistemaGestaoFinanceiraEmpresarial.Repositories.Interfaces;
 

@@ -1,4 +1,5 @@
 ﻿using SistemaDeGestãoFinanceiraEmpresarial;
+using SistemaDeGestãoFinanceiraEmpresarial.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace SistemaGestaoFinanceiraEmpresarial.Models
@@ -8,6 +9,8 @@ namespace SistemaGestaoFinanceiraEmpresarial.Models
         public int Id { get; set; }
 
         public int NumeroParcela { get; set; }
+
+        public int TotalParcelas { get; set; }
 
         [Range(0.01, double.MaxValue)]
         public decimal Valor { get; set; }

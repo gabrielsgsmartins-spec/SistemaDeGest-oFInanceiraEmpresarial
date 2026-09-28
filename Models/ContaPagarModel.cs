@@ -1,5 +1,7 @@
 ﻿using SistemaDeGestãoFinanceiraEmpresarial;
+using SistemaDeGestãoFinanceiraEmpresarial.Models;
 using System.ComponentModel.DataAnnotations;
+using SistemaGestaoFinanceiraEmpresarial.Enums;
 
 namespace SistemaGestaoFinanceiraEmpresarial.Models
 {

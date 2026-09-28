@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SistemaDeGestãoFinanceiraEmpresarial;
+using SistemaDeGestãoFinanceiraEmpresarial.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace SistemaGestaoFinanceiraEmpresarial.Models
 {

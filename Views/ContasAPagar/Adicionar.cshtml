@@ -1,0 +1,196 @@
+﻿@model SistemaGestaoFinanceiraEmpresarial.Models.ContaPagarModel
+
+@{
+    ViewData["Title"] = "Nova Conta a Pagar";
+}
+
+<div class="page-header">
+    <div>
+        <h1>Nova Conta a Pagar</h1>
+        <p>Cadastre uma nova obrigação financeira da empresa.</p>
+    </div>
+
+    <a asp-controller="ContasAPagar"
+       asp-action="Index"
+       class="btn-voltar">
+        Voltar
+    </a>
+</div>
+
+<div class="form-card">
+
+    <form asp-controller="ContasAPagar"
+          asp-action="Adicionar"
+          method="post">
+
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="ModelOnly"
+             class="validation-summary"></div>
+
+        <div class="form-section">
+            <div class="section-title">
+                <h2>Informações da conta</h2>
+                <span>Dados principais</span>
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label asp-for="FornecedorId">Fornecedor</label>
+
+                    <select asp-for="FornecedorId"
+                            class="form-control"
+                            asp-items="ViewBag.Fornecedores">
+                        <option value="">Selecione o fornecedor</option>
+                    </select>
+
+                    <span asp-validation-for="FornecedorId"
+                          class="field-validation"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CategoriaFinanceiraId">
+                        Categoria financeira
+                    </label>
+
+                    <select asp-for="CategoriaFinanceiraId"
+                            class="form-control"
+                            asp-items="ViewBag.Categorias">
+                        <option value="">Selecione a categoria</option>
+                    </select>
+
+                    <span asp-validation-for="CategoriaFinanceiraId"
+                          class="field-validation"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CentroCustoId">
+                        Centro de custo
+                    </label>
+
+                    <select asp-for="CentroCustoId"
+                            class="form-control"
+                            asp-items="ViewBag.CentrosCusto">
+                        <option value="">Selecione o centro de custo</option>
+                    </select>
+
+                    <span asp-validation-for="CentroCustoId"
+                          class="field-validation"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Valor">Valor</label>
+
+                    <div class="input-money">
+                        <span>R$</span>
+
+                        <input asp-for="Valor"
+                               type="number"
+                               step="0.01"
+                               min="0.01"
+                               class="form-control"
+                               placeholder="0,00" />
+                    </div>
+
+                    <span asp-validation-for="Valor"
+                          class="field-validation"></span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-section">
+
+            <div class="section-title">
+                <h2>Descrição e datas</h2>
+                <span>Controle financeiro</span>
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group form-group-full">
+                    <label asp-for="Descricao">Descrição</label>
+
+                    <input asp-for="Descricao"
+                           class="form-control"
+                           placeholder="Ex.: Compra de equipamentos de TI" />
+
+                    <span asp-validation-for="Descricao"
+                          class="field-validation"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="DataEmissao">
+                        Data de emissão
+                    </label>
+
+                    <input asp-for="DataEmissao"
+                           type="date"
+                           class="form-control" />
+
+                    <span asp-validation-for="DataEmissao"
+                          class="field-validation"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="DataVencimento">
+                        Data de vencimento
+                    </label>
+
+                    <input asp-for="DataVencimento"
+                           type="date"
+                           class="form-control" />
+
+                    <span asp-validation-for="DataVencimento"
+                          class="field-validation"></span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-section">
+
+            <div class="section-title">
+                <h2>Observações</h2>
+                <span>Informações adicionais</span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Observacao">Observação</label>
+
+                <textarea asp-for="Observacao"
+                          class="form-control textarea"
+                          rows="4"
+                          placeholder="Digite alguma observação sobre esta conta..."></textarea>
+
+                <span asp-validation-for="Observacao"
+                      class="field-validation"></span>
+            </div>
+
+        </div>
+
+        <div class="form-actions">
+
+            <a asp-controller="ContasAPagar"
+               asp-action="Index"
+               class="btn-cancelar">
+                Cancelar
+            </a>
+
+            <button type="submit"
+                    class="btn-salvar">
+                Cadastrar conta
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

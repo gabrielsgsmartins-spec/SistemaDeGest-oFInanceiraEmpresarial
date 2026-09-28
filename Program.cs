@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using SistemaDeGestaoFinanceiraEmpresarial.Data;
+using SistemaGestaoFinanceiraEmpresarial.Models;
+using SistemaGestaoFinanceiraEmpresarial.Repositories;
+using SistemaGestaoFinanceiraEmpresarial.Repositories.Interfaces;
+using SistemaGestaoFinanceiraEmpresarial.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +13,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     ));
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<ContasAPagarService>();
+builder.Services.AddScoped<IContasAPagarRepository, ContasAPagarRepository>();
 
 var app = builder.Build();
 
@@ -23,7 +30,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
 
 app.UseAuthorization();
 

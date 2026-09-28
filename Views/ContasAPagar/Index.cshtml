@@ -1,0 +1,352 @@
+﻿@model IEnumerable<SistemaGestaoFinanceiraEmpresarial.Models.ContaPagarModel>
+@using SistemaGestaoFinanceiraEmpresarial.Enums
+@{
+    ViewData["Title"] = "Contas a Pagar";
+}
+
+<link rel="stylesheet" href="~/css/ContasAPagar.css" />
+
+<div class="contas-page">
+
+    <div class="page-header">
+        <div>
+            <span class="page-kicker">FINANCEIRO</span>
+            <h1>Contas a Pagar</h1>
+            <p>Gerencie suas obrigações financeiras e acompanhe os pagamentos.</p>
+        </div>
+
+        <a asp-controller="ContasAPagar"
+           asp-action="Adicionar"
+           class="btn-primary-custom">
+            <span>+</span>
+            Nova conta
+        </a>
+    </div>
+
+    <div class="summary-grid">
+
+        <div class="summary-card">
+            <div class="summary-icon blue">
+                $
+            </div>
+
+            <div>
+                <span class="summary-label">Total de contas</span>
+                <strong>@Model.Count()</strong>
+            </div>
+        </div>
+
+        <div class="summary-card">
+            <div class="summary-icon yellow">
+                !
+            </div>
+
+            <div>
+                <span class="summary-label">Pendentes</span>
+                <strong>
+                    @Model.Count(c => c.Status == SistemaGestaoFinanceiraEmpresarial.Enums.StatusContaEnum.Pendente)
+                </strong>
+            </div>
+        </div>
+
+        <div class="summary-card">
+            <div class="summary-icon red">
+                !
+            </div>
+
+            <div>
+                <span class="summary-label">Vencidas</span>
+                <strong>
+                    @Model.Count(c => c.Status == SistemaGestaoFinanceiraEmpresarial.Enums.StatusContaEnum.Vencida)
+                </strong>
+            </div>
+        </div>
+
+        <div class="summary-card">
+            <div class="summary-icon green">
+                ✓
+            </div>
+
+            <div>
+                <span class="summary-label">Pagas</span>
+                <strong>
+                    @Model.Count(c => c.Status == SistemaGestaoFinanceiraEmpresarial.Enums.StatusContaEnum.Paga)
+                </strong>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="content-card">
+
+        <div class="tabs-container">
+
+            <a asp-action="Index"
+               class="tab active">
+                Todas
+            </a>
+
+            <a asp-action="PorStatus"
+               asp-route-status="Pendente"
+               class="tab">
+                Pendentes
+            </a>
+
+            <a asp-action="PorStatus"
+               asp-route-status="Vencida"
+               class="tab">
+                Vencidas
+            </a>
+
+            <a asp-action="PorStatus"
+               asp-route-status="Paga"
+               class="tab">
+                Pagas
+            </a>
+
+        </div>
+
+        <div class="toolbar">
+
+            <div class="search-box">
+                <span>⌕</span>
+
+                <input type="text"
+                       id="campoPesquisa"
+                       placeholder="Pesquisar conta..." />
+            </div>
+
+            <div class="filter-group">
+
+                <button type="button" class="filter-button">
+                    ☰
+                    Filtros
+                </button>
+
+                <button type="button" class="filter-button">
+                    Data
+                    ▾
+                </button>
+
+            </div>
+
+        </div>
+
+        @if (Model.Any())
+        {
+            <div class="table-container">
+
+                <table class="finance-table">
+
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Fornecedor</th>
+                            <th>Vencimento</th>
+                            <th>Valor</th>
+                            <th>Status</th>
+                            <th class="actions-column">Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var conta in Model)
+                        {
+                            <tr class="conta-row">
+
+                                <td>
+                                    <div class="description-cell">
+
+                                        <div class="description-icon">
+                                            $
+                                        </div>
+
+                                        <div>
+                                            <strong>
+                                                @conta.Descricao
+                                            </strong>
+
+                                            <span>
+                                                Conta #@conta.Id
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                </td>
+
+                                <td>
+                                    @if (conta.Fornecedor != null)
+                                    {
+                                        <span class="supplier-name">
+                                            @conta.Fornecedor.NomeFantasia
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="empty-value">
+                                            Não informado
+                                        </span>
+                                    }
+                                </td>
+
+                                <td>
+                                    <span class="date-value">
+                                        @conta.DataVencimento.ToString("dd/MM/yyyy")
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <strong class="amount-value">
+                                        @conta.Valor.ToString("C2")
+                                    </strong>
+                                </td>
+
+                                <td>
+
+                                    @if (conta.Status == SistemaGestaoFinanceiraEmpresarial.Enums.StatusContaEnum.Pendente)
+                                    {
+                                        <span class="status-badge pending">
+                                            Pendente
+                                        </span>
+                                    }
+                                    else if (conta.Status == SistemaGestaoFinanceiraEmpresarial.Enums.StatusContaEnum.Vencida)
+                                    {
+                                        <span class="status-badge overdue">
+                                            Vencida
+                                        </span>
+                                    }
+                                    else if (conta.Status == SistemaGestaoFinanceiraEmpresarial.Enums.StatusContaEnum.Paga)
+                                    {
+                                        <span class="status-badge paid">
+                                            Paga
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="status-badge">
+                                            @conta.Status
+                                        </span>
+                                    }
+
+                                </td>
+
+                                <td>
+
+                                    <div class="action-buttons">
+
+                                        <a asp-action="Editar"
+                                           asp-route-id="@conta.Id"
+                                           class="action-button edit"
+                                           title="Editar">
+                                            ✎
+                                        </a>
+
+                                        @if (conta.Status != SistemaGestaoFinanceiraEmpresarial.Enums.StatusContaEnum.Paga)
+                                        {
+                                            <form asp-action="RegistrarPagamento"
+                                                  asp-route-id="@conta.Id"
+                                                  method="post">
+
+                                                @Html.AntiForgeryToken()
+
+                                                <button type="submit"
+                                                        class="action-button pay"
+                                                        title="Registrar pagamento"
+                                                        onclick="return confirm('Deseja realmente registrar o pagamento desta conta?');">
+                                                    ✓
+                                                </button>
+
+                                            </form>
+                                        }
+
+                                        <form asp-action="Excluir"
+                                              asp-route-id="@conta.Id"
+                                              method="post">
+
+                                            @Html.AntiForgeryToken()
+
+                                            <button type="submit"
+                                                    class="action-button delete"
+                                                    title="Excluir"
+                                                    onclick="return confirm('Deseja realmente excluir esta conta?');">
+                                                ×
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    $
+                </div>
+
+                <h3>Nenhuma conta encontrada</h3>
+
+                <p>
+                    Você ainda não possui contas a pagar cadastradas.
+                </p>
+
+                <a asp-action="Adicionar"
+                   class="btn-primary-custom">
+                    + Nova conta
+                </a>
+
+            </div>
+        }
+
+        <div class="table-footer">
+
+            <span>
+                Exibindo <strong>@Model.Count()</strong> conta(s)
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script>
+
+        const campoPesquisa = document.getElementById("campoPesquisa");
+
+        if (campoPesquisa) {
+
+            campoPesquisa.addEventListener("input", function () {
+
+                const termo = this.value.toLowerCase();
+
+                document.querySelectorAll(".conta-row").forEach(function (linha) {
+
+                    const texto = linha.innerText.toLowerCase();
+
+                    linha.style.display =
+                        texto.includes(termo) ? "" : "none";
+
+                });
+
+            });
+
+        }
+
+    </script>
+
+}

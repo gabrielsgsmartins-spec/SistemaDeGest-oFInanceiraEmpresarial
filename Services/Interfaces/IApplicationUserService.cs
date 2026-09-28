@@ -1,4 +1,4 @@
-﻿using SistemaGestaoFinanceiraEmpresarial.Models;
+using SistemaGestaoFinanceiraEmpresarial.Models;
 
 namespace SistemaGestaoFinanceiraEmpresarial.Services.Interfaces
 {

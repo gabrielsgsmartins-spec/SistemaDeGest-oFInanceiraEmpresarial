@@ -1,4 +1,5 @@
-﻿using SistemaGestaoFinanceiraEmpresarial.Models;
+﻿
+using SistemaGestaoFinanceiraEmpresarial.Models;
 using SistemaGestaoFinanceiraEmpresarial.Repositories.Interfaces;
 using SistemaGestaoFinanceiraEmpresarial.Services.Interfaces;
 
@@ -29,3 +30,4 @@ namespace SistemaGestaoFinanceiraEmpresarial.Services
         }
     }
 }
+

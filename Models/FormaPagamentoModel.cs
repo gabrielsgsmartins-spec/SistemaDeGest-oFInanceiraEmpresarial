@@ -1,8 +1,9 @@
 ﻿using SistemaDeGestãoFinanceiraEmpresarial;
+using SistemaDeGestãoFinanceiraEmpresarial.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace SistemaGestaoFinanceiraEmpresarial.Models
-{
+{ 
     public class FormaPagamentoModel
     {
         public int Id { get; set; }
