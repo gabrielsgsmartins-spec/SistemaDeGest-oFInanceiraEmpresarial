@@ -17,15 +17,16 @@ namespace SistemaGestaoFinanceiraEmpresarial.Repositories
         public List<ApplicationUserModel> ListarTodos()
         {
             return _context.ApplicationUsers
-                .Include(u => u.Departamento)
+                .Include(u => u.Funcionario)
+                    .ThenInclude(f => f.Departamento)
                 .ToList();
-            
         }
 
         public ApplicationUserModel? BuscarPorId(string id)
         {
             return _context.ApplicationUsers
-                .Include(u => u.Departamento)
+                .Include(u => u.Funcionario)
+                    .ThenInclude(f => f.Departamento)
                 .FirstOrDefault(u => u.Id == id);
         }
 

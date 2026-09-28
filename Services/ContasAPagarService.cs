@@ -59,7 +59,6 @@ namespace SistemaGestaoFinanceiraEmpresarial.Services
             {
                 throw new ArgumentException("A conta a pagar não existe.", nameof(contaPagar.Id));
             }
-            // Implementar a lógica de edição, como validações e regras de negócio
             _contasAPagarRepository.Editar(contaPagar);
         }
 
@@ -70,7 +69,6 @@ namespace SistemaGestaoFinanceiraEmpresarial.Services
             {
                 throw new ArgumentException("A conta a pagar não existe.", nameof(id));
             }
-            // Implementar a lógica de exclusão, como validações e regras de negócio
             return _contasAPagarRepository.Excluir(id);
         }
 
