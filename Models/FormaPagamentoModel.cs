@@ -3,17 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SistemaGestaoFinanceiraEmpresarial.Models
 {
-    public class CategoriaFinanceiraModel
+    public class FormaPagamentoModel
     {
         public int Id { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(50)]
         public string Nome { get; set; }
-
-        [Required]
-        [StringLength(20)]
-        public string Tipo { get; set; }
 
         [StringLength(255)]
         public string? Descricao { get; set; }
@@ -23,7 +19,5 @@ namespace SistemaGestaoFinanceiraEmpresarial.Models
         public List<ContaPagarModel> ContasPagar { get; set; } = new();
 
         public List<ContaReceberModel> ContasReceber { get; set; } = new();
-
-        public List<MovimentacaoFinanceiraModel> Movimentacoes { get; set; } = new();
     }
 }

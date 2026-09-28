@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using SistemaDeGestãoFinanceiraEmpresarial;
+using System.ComponentModel.DataAnnotations;
 
-namespace SistemaDeGestãoFinanceiraEmpresarial.Enums
+namespace SistemaGestaoFinanceiraEmpresarial.Models
 {
     public enum StatusContaEnum
     {

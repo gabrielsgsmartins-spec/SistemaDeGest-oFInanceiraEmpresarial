@@ -1,4 +1,7 @@
-﻿namespace SistemaDeGestãoFinanceiraEmpresarial.Enums
+﻿using SistemaDeGestãoFinanceiraEmpresarial;
+using System.ComponentModel.DataAnnotations;
+
+namespace SistemaGestaoFinanceiraEmpresarial.Models
 {
     public enum TipoCategoriaEnum 
     {

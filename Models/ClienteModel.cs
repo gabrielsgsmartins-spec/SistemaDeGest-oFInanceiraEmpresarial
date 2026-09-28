@@ -1,49 +1,34 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using SistemaDeGestãoFinanceiraEmpresarial.Enums;
+﻿using System.ComponentModel.DataAnnotations;
 
-
-namespace SistemaDeGestãoFinanceiraEmpresarial
+namespace SistemaGestaoFinanceiraEmpresarial.Models
 {
-    public class Fornecedor
+    public class ClienteModel
     {
         public int Id { get; set; }
 
         [Required]
-        [StringLength(200)]
-        public string RazaoSocial { get; set; }
-
-        [StringLength(200)]
-        public string? NomeFantasia { get; set; }
+        [StringLength(150)]
+        public string Nome { get; set; }
 
         [StringLength(18)]
-        public string? Cnpj { get; set; }
+        public string? Documento { get; set; }
 
         [EmailAddress]
+        [StringLength(150)]
         public string? Email { get; set; }
 
         [StringLength(20)]
         public string? Telefone { get; set; }
 
-        [StringLength(9)]
-        public string? Cep { get; set; }
-
-        [StringLength(200)]
+        [StringLength(250)]
         public string? Endereco { get; set; }
 
-        [StringLength(10)]
-        public string? Numero { get; set; }
-
-        [StringLength(100)]
-        public string? Cidade { get; set; }
-
-        [StringLength(2)]
-        public string? Estado { get; set; }
-
-        public string? Observacoes { get; set; }
+        public DateTime DataCadastro { get; set; } = DateTime.Now;
 
         public bool Ativo { get; set; } = true;
 
-        public DateTime DataCadastro { get; set; } = DateTime.Now;
+        public List<ContaReceberModel> ContasReceber { get; set; } = new();
+
+        public List<OrcamentoModel> Orcamentos { get; set; } = new();
     }
 }

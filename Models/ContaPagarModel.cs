@@ -1,8 +1,7 @@
-﻿using System;
+﻿using SistemaDeGestãoFinanceiraEmpresarial;
 using System.ComponentModel.DataAnnotations;
-using SistemaDeGestãoFinanceiraEmpresarial.Enums;
 
-namespace SistemaDeGestãoFinanceiraEmpresarial
+namespace SistemaGestaoFinanceiraEmpresarial.Models
 {
     public class ContaPagarModel
     {

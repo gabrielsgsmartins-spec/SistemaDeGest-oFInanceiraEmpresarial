@@ -2,7 +2,7 @@
 
 namespace SistemaGestaoFinanceiraEmpresarial.Models
 {
-    public class DepartamentoModel
+    public class CentroCustoModel
     {
         public int Id { get; set; }
 
@@ -14,7 +14,5 @@ namespace SistemaGestaoFinanceiraEmpresarial.Models
         public string? Descricao { get; set; }
 
         public bool Ativo { get; set; } = true;
-
-        public List<ApplicationUserModel> Usuarios { get; set; } = new();
     }
 }

@@ -1,9 +1,10 @@
 ﻿using SistemaDeGestãoFinanceiraEmpresarial;
+using SistemaDeGestãoFinanceiraEmpresarial.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace SistemaGestaoFinanceiraEmpresarial.Models
 {
-    public class ContaReceberModel
+    public class MovimentacaoFinanceiraModel
     {
         public int Id { get; set; }
 
@@ -14,26 +15,18 @@ namespace SistemaGestaoFinanceiraEmpresarial.Models
         [Range(0.01, double.MaxValue)]
         public decimal Valor { get; set; }
 
-        public DateTime DataVencimento { get; set; }
-
-        public DateTime? DataRecebimento { get; set; }
-
         [Required]
-        [StringLength(30)]
-        public string Status { get; set; }
+        [StringLength(20)]
+        public string Tipo { get; set; }
 
-        public int ClienteId { get; set; }
+        public DateTime Data { get; set; } = DateTime.Now;
 
-        public ClienteModel? Cliente { get; set; }
+        public int ContaBancariaId { get; set; }
+
+        public ContaBancariaModel? ContaBancaria { get; set; }
 
         public int CategoriaFinanceiraId { get; set; }
 
         public CategoriaFinanceiraModel? CategoriaFinanceira { get; set; }
-
-        public int? FormaPagamentoId { get; set; }
-
-        public FormaPagamentoModel? FormaPagamento { get; set; }
-
-        public List<ParcelaModel> Parcelas { get; set; } = new();
     }
 }
