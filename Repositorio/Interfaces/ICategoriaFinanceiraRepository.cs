@@ -1,5 +1,6 @@
 ﻿using SistemaDeGestãoFinanceiraEmpresarial;
 using SistemaDeGestãoFinanceiraEmpresarial.Models;
+using SistemaDeGestãoFinanceiraEmpresarial.Models.Financeiro;
 
 
 namespace SistemaGestaoFinanceiraEmpresarial.Models
@@ -10,7 +11,7 @@ namespace SistemaGestaoFinanceiraEmpresarial.Models
         CategoriaFinanceiraModel? BuscarPorId(int id);
         void Adicionar(CategoriaFinanceiraModel categoria);
         void Editar(CategoriaFinanceiraModel categoria);
-        bool Excluir(CategoriaFinanceiraModel categoria);
+        void Excluir(int id);
         void Atualizar(CategoriaFinanceiraModel categoria);
     }
 }

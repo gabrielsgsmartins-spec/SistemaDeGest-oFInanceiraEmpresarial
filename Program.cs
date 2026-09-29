@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SistemaDeGestaoFinanceiraEmpresarial.Data;
+using SistemaDeGestãoFinanceiraEmpresarial.Data;
+using SistemaDeGestãoFinanceiraEmpresarial.Models.Seguranca;
 using SistemaGestaoFinanceiraEmpresarial.Models;
 using SistemaGestaoFinanceiraEmpresarial.Repositories;
 using SistemaGestaoFinanceiraEmpresarial.Repositories.Interfaces;

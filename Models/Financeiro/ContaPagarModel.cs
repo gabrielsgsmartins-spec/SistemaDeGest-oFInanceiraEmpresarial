@@ -2,8 +2,10 @@
 using SistemaDeGestãoFinanceiraEmpresarial.Models;
 using System.ComponentModel.DataAnnotations;
 using SistemaGestaoFinanceiraEmpresarial.Enums;
+using SistemaDeGestãoFinanceiraEmpresarial.Models.Cadastros;
+using SistemaGestaoFinanceiraEmpresarial.Models;
 
-namespace SistemaGestaoFinanceiraEmpresarial.Models
+namespace SistemaDeGestãoFinanceiraEmpresarial.Models.Financeiro
 {
     public class ContaPagarModel
     {

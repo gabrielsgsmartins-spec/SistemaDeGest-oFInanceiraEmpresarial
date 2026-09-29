@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using SistemaGestaoFinanceiraEmpresarial.Models;
+using SistemaDeGestãoFinanceiraEmpresarial.Models.Seguranca;
 using SistemaGestaoFinanceiraEmpresarial.Repositories.Interfaces;
 
 namespace SistemaGestaoFinanceiraEmpresarial.Services

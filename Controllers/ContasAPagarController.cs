@@ -1,15 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SistemaGestaoFinanceiraEmpresarial.Models;
 using SistemaGestaoFinanceiraEmpresarial.Services;
 using SistemaGestaoFinanceiraEmpresarial.Enums;
-using SistemaGestaoFinanceiraEmpresarial.Enums;
+using SistemaDeGestãoFinanceiraEmpresarial.Models.Financeiro;
 
 namespace SistemaGestaoFinanceiraEmpresarial.Controllers
 {
     public class ContasAPagarController : Controller
     {
         private readonly ContasAPagarService _service;
-        private readonly ContasAPagarService _contasAPagarService;
         public ContasAPagarController(ContasAPagarService service)
         {
             _service = service;

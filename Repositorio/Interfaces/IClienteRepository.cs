@@ -1,4 +1,4 @@
-﻿using SistemaGestaoFinanceiraEmpresarial.Models;
+﻿using SistemaDeGestãoFinanceiraEmpresarial.Models.Cadastros;
 
 namespace SistemaGestaoFinanceiraEmpresarial.Repositories.Interfaces
 {
@@ -12,7 +12,7 @@ namespace SistemaGestaoFinanceiraEmpresarial.Repositories.Interfaces
 
         void Atualizar(ClienteModel cliente);
 
-        bool Excluir(ClienteModel cliente);
+        bool Excluir(int id);
 
         bool DocumentoExiste(string documento, int? id = null);
     }

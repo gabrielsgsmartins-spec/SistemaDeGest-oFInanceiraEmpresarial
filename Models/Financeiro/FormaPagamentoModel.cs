@@ -2,7 +2,7 @@
 using SistemaDeGestãoFinanceiraEmpresarial.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace SistemaGestaoFinanceiraEmpresarial.Models
+namespace SistemaDeGestãoFinanceiraEmpresarial.Models.Financeiro
 { 
     public class FormaPagamentoModel
     {
@@ -10,7 +10,7 @@ namespace SistemaGestaoFinanceiraEmpresarial.Models
 
         [Required]
         [StringLength(50)]
-        public string Nome { get; set; }
+        public string? Nome { get; set; }
 
         [StringLength(255)]
         public string? Descricao { get; set; }

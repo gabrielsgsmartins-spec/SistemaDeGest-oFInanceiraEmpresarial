@@ -1,8 +1,9 @@
 ﻿using SistemaDeGestãoFinanceiraEmpresarial;
 using SistemaDeGestãoFinanceiraEmpresarial.Models;
+using SistemaDeGestãoFinanceiraEmpresarial.Models.Seguranca;
 using System.ComponentModel.DataAnnotations;
 
-namespace SistemaGestaoFinanceiraEmpresarial.Models
+namespace SistemaDeGestãoFinanceiraEmpresarial.Models.Cadastros
 {
     public class DepartamentoModel
     {

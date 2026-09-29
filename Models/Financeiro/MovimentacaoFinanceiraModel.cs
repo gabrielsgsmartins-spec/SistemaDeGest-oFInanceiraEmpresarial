@@ -1,8 +1,9 @@
 ﻿using SistemaDeGestãoFinanceiraEmpresarial;
 using SistemaDeGestãoFinanceiraEmpresarial.Models;
+using SistemaDeGestãoFinanceiraEmpresarial.Models.Bancario;
 using System.ComponentModel.DataAnnotations;
 
-namespace SistemaGestaoFinanceiraEmpresarial.Models
+namespace SistemaDeGestãoFinanceiraEmpresarial.Models.Financeiro
 {
     public class MovimentacaoFinanceiraModel
     {

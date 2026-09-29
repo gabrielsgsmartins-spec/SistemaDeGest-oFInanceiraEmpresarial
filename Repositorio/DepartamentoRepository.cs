@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SistemaDeGestaoFinanceiraEmpresarial.Data;
+using SistemaDeGestãoFinanceiraEmpresarial.Data;
+using SistemaDeGestãoFinanceiraEmpresarial.Models.Cadastros;
 using SistemaGestaoFinanceiraEmpresarial.Models;
 using SistemaGestaoFinanceiraEmpresarial.Repositories.Interfaces;
 
@@ -31,7 +32,7 @@ namespace SistemaGestaoFinanceiraEmpresarial.Repositories
                 .FirstOrDefault(d => d.Id == id);
         }
 
-        public void Adicionar(DepartamentoModel departamento)
+        public void Cadastrar(DepartamentoModel departamento)
         {
             ArgumentNullException.ThrowIfNull(departamento);
 

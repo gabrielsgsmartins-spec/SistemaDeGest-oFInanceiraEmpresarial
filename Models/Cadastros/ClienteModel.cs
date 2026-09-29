@@ -1,8 +1,10 @@
 ﻿using SistemaDeGestãoFinanceiraEmpresarial;
 using SistemaDeGestãoFinanceiraEmpresarial.Models;
+using SistemaDeGestãoFinanceiraEmpresarial.Models.Comercial;
+using SistemaDeGestãoFinanceiraEmpresarial.Models.Financeiro;
 using System.ComponentModel.DataAnnotations;
 
-namespace SistemaGestaoFinanceiraEmpresarial.Models
+namespace SistemaDeGestãoFinanceiraEmpresarial.Models.Cadastros
 {
     public class ClienteModel
     {
@@ -10,7 +12,7 @@ namespace SistemaGestaoFinanceiraEmpresarial.Models
 
         [Required]
         [StringLength(150)]
-        public string Nome { get; set; }
+        public string? Nome { get; set; }
 
         [StringLength(18)]
         public string? Documento { get; set; }

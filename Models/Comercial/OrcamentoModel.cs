@@ -1,8 +1,10 @@
 ﻿using SistemaDeGestãoFinanceiraEmpresarial;
+using SistemaDeGestaoFinanceiraEmpresarial.Enums;
 using SistemaDeGestãoFinanceiraEmpresarial.Models;
+using SistemaDeGestãoFinanceiraEmpresarial.Models.Cadastros;
 using System.ComponentModel.DataAnnotations;
 
-namespace SistemaGestaoFinanceiraEmpresarial.Models
+namespace SistemaDeGestãoFinanceiraEmpresarial.Models.Comercial
 {
     public class OrcamentoModel
     {
@@ -20,9 +22,9 @@ namespace SistemaGestaoFinanceiraEmpresarial.Models
 
         [Required]
         [StringLength(30)]
-        public string Status { get; set; }
+        public StatusOrcamentoEnum Status { get; set; } = StatusOrcamentoEnum.Pendente;
 
-        [StringLength(500)]
+        [StringLength(200)]
         public string? Observacao { get; set; }
 
         public List<OrcamentoItemModel> Itens { get; set; } = new();

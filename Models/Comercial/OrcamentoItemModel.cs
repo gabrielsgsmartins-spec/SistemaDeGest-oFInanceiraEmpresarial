@@ -2,7 +2,7 @@
 using SistemaDeGestãoFinanceiraEmpresarial.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace SistemaGestaoFinanceiraEmpresarial.Models
+namespace SistemaDeGestãoFinanceiraEmpresarial.Models.Comercial
 {
     public class OrcamentoItemModel
     {
@@ -14,7 +14,7 @@ namespace SistemaGestaoFinanceiraEmpresarial.Models
 
         [Required]
         [StringLength(200)]
-        public string Descricao { get; set; }
+        public string? Descricao { get; set; }
 
         [Range(1, int.MaxValue)]
         public int Quantidade { get; set; }

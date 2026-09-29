@@ -1,8 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SistemaDeGestãoFinanceiraEmpresarial;
-using SistemaGestaoFinanceiraEmpresarial.Models;
+using SistemaDeGestãoFinanceiraEmpresarial.Models.Bancario;
+using SistemaDeGestãoFinanceiraEmpresarial.Models.Cadastros;
+using SistemaDeGestãoFinanceiraEmpresarial.Models.Comercial;
+using SistemaDeGestãoFinanceiraEmpresarial.Models.Financeiro;
+using SistemaDeGestãoFinanceiraEmpresarial.Models.Seguranca;
 
-namespace SistemaDeGestaoFinanceiraEmpresarial.Data
+namespace SistemaDeGestãoFinanceiraEmpresarial.Data
 {
     public class ApplicationDbContext : DbContext
     {
@@ -41,5 +44,7 @@ namespace SistemaDeGestaoFinanceiraEmpresarial.Data
         public DbSet<ParcelaModel> Parcelas { get; set; }
 
         public DbSet<TransferenciaModel> Transferencias { get; set; }
+
+        public DbSet<FuncionarioModel> Funcionarios { get; set; }
     }
 }

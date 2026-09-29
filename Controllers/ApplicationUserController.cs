@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SistemaGestaoFinanceiraEmpresarial.Models;
+using SistemaDeGestãoFinanceiraEmpresarial.Models.Seguranca;
 using SistemaGestaoFinanceiraEmpresarial.Services;
 
 namespace SistemaGestaoFinanceiraEmpresarial.Controllers

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SistemaDeGestaoFinanceiraEmpresarial.Data;
+using SistemaDeGestãoFinanceiraEmpresarial.Data;
+using SistemaDeGestãoFinanceiraEmpresarial.Models.Financeiro;
 using SistemaGestaoFinanceiraEmpresarial.Models;
 using SistemaGestaoFinanceiraEmpresarial.Repositories.Interfaces;
 
@@ -62,23 +63,17 @@ namespace SistemaGestaoFinanceiraEmpresarial.Repositories
             _context.SaveChanges();
         }
 
-        public bool Excluir(CategoriaFinanceiraModel categoria)
+        public void Excluir(int id)
         {
-            ArgumentNullException.ThrowIfNull(categoria);
+            if (id <= 0)
+                throw new ArgumentException( "O ID da categoria é inválido.",nameof(id));
 
-            if (categoria.Id <= 0)
-                return false;
-
-            var categoriaExistente = _context.CategoriasFinanceiras
-                .FirstOrDefault(c => c.Id == categoria.Id);
+            var categoriaExistente = _context.CategoriasFinanceiras.FirstOrDefault(c => c.Id == id);
 
             if (categoriaExistente == null)
-                return false;
-
+                throw new KeyNotFoundException("Categoria financeira não encontrada.");
             _context.CategoriasFinanceiras.Remove(categoriaExistente);
             _context.SaveChanges();
-
-            return true;
         }
 
         public bool NomeExiste(string nome, int? id = null)

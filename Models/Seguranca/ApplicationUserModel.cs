@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using SistemaDeGestãoFinanceiraEmpresarial.Models.Cadastros;
 
-namespace SistemaGestaoFinanceiraEmpresarial.Models
+namespace SistemaDeGestãoFinanceiraEmpresarial.Models.Seguranca
 {
     public class ApplicationUserModel : IdentityUser
     {

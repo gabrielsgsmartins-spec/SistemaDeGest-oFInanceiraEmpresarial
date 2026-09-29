@@ -1,5 +1,6 @@
 ﻿using SistemaDeGestãoFinanceiraEmpresarial;
 using SistemaDeGestãoFinanceiraEmpresarial.Models;
+using SistemaDeGestãoFinanceiraEmpresarial.Models.Cadastros;
 
 namespace SistemaGestaoFinanceiraEmpresarial.Models
 {

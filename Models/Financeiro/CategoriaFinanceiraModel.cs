@@ -2,7 +2,7 @@
 using SistemaDeGestãoFinanceiraEmpresarial.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace SistemaGestaoFinanceiraEmpresarial.Models
+namespace SistemaDeGestãoFinanceiraEmpresarial.Models.Financeiro
 {
     public class CategoriaFinanceiraModel
     {

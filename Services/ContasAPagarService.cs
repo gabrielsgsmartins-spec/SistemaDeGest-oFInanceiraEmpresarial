@@ -2,6 +2,7 @@
 using SistemaGestaoFinanceiraEmpresarial.Repositories;
 using SistemaGestaoFinanceiraEmpresarial.Repositories.Interfaces;
 using SistemaGestaoFinanceiraEmpresarial.Enums;
+using SistemaDeGestãoFinanceiraEmpresarial.Models.Financeiro;
 
 namespace SistemaGestaoFinanceiraEmpresarial.Services
 {

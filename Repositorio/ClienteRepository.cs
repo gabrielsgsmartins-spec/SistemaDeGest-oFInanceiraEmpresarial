@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SistemaDeGestaoFinanceiraEmpresarial.Data;
-using SistemaGestaoFinanceiraEmpresarial.Models;
+using SistemaDeGestãoFinanceiraEmpresarial.Data;
+using SistemaDeGestãoFinanceiraEmpresarial.Models.Cadastros;
 using SistemaGestaoFinanceiraEmpresarial.Repositories.Interfaces;
 
 namespace SistemaGestaoFinanceiraEmpresarial.Repositories
@@ -65,22 +65,15 @@ namespace SistemaGestaoFinanceiraEmpresarial.Repositories
             _context.SaveChanges();
         }
 
-        public bool Excluir(ClienteModel cliente)
+        public bool Excluir(int id)
         {
-            ArgumentNullException.ThrowIfNull(cliente);
-
-            if (cliente.Id <= 0)
-                return false;
-
-            var clienteExistente = _context.Clientes
-                .FirstOrDefault(c => c.Id == cliente.Id);
-
+            if (id <= 0)
+                throw new ArgumentException("O ID do cliente é inválido.", nameof(id));
+            var clienteExistente = _context.Clientes.FirstOrDefault(c => c.Id == id);
             if (clienteExistente == null)
-                return false;
-
+                throw new KeyNotFoundException("Cliente não encontrado.");
             _context.Clientes.Remove(clienteExistente);
             _context.SaveChanges();
-
             return true;
         }
 
