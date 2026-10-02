@@ -66,7 +66,7 @@ namespace SistemaGestaoFinanceiraEmpresarial.Repositories
         public void Excluir(int id)
         {
             if (id <= 0)
-                throw new ArgumentException( "O ID da categoria é inválido.",nameof(id));
+                throw new ArgumentException("O ID da categoria é inválido.", nameof(id));
 
             var categoriaExistente = _context.CategoriasFinanceiras.FirstOrDefault(c => c.Id == id);
 
@@ -75,6 +75,7 @@ namespace SistemaGestaoFinanceiraEmpresarial.Repositories
             _context.CategoriasFinanceiras.Remove(categoriaExistente);
             _context.SaveChanges();
         }
+
 
         public bool NomeExiste(string nome, int? id = null)
         {
@@ -87,18 +88,39 @@ namespace SistemaGestaoFinanceiraEmpresarial.Repositories
         {
             ArgumentNullException.ThrowIfNull(categoria);
             if (categoria.Id <= 0)
-                throw new ArgumentException(
-                    "O ID da categoria é inválido.",
-                    nameof(categoria));
-            var categoriaExistente = _context.CategoriasFinanceiras
-                .FirstOrDefault(c => c.Id == categoria.Id);
+                throw new ArgumentException("O ID da categoria é inválido.", nameof(categoria));
+
+            var categoriaExistente = _context.CategoriasFinanceiras.FirstOrDefault(c => c.Id == categoria.Id);
             if (categoriaExistente == null)
-                throw new KeyNotFoundException(
-                    "Categoria financeira não encontrada.");
+                throw new KeyNotFoundException("Categoria financeira não encontrada.");
+
             categoriaExistente.Nome = categoria.Nome;
             categoriaExistente.Descricao = categoria.Descricao;
             categoriaExistente.Ativa = categoria.Ativa;
+
             _context.SaveChanges();
+        }
+        public CategoriaFinanceiraModel? BuscarPorNome(string nome)
+        {
+            return _context.CategoriasFinanceiras
+                .FirstOrDefault(c => c.Nome == nome);
+        }
+        public bool PossuiMovimentacoes(int categoriaId)
+        {
+            return _context.MovimentacoesFinanceiras
+                .Any(m => m.CategoriaFinanceiraId == categoriaId);
+        }
+
+        public bool PossuiContasAPagar(int categoriaId)
+        {
+            return _context.ContasPagar
+                .Any(c => c.CategoriaFinanceiraId == categoriaId);
+        }
+
+        public bool PossuiContasAReceber(int categoriaId)
+        {
+            return _context.ContasReceber
+                .Any(c => c.CategoriaFinanceiraId == categoriaId);
         }
     }
 }

@@ -13,5 +13,8 @@ namespace SistemaGestaoFinanceiraEmpresarial.Models
         void Adicionar(FuncionarioModel funcionario);
         void Atualizar(FuncionarioModel funcionario);
         void Excluir(int id);
+        void Ativar(int id);
+        void Desativar(int id);
+        bool PossuiFuncionarios(int departamentoId);
     }
 }

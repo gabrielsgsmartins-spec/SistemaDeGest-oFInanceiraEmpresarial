@@ -63,6 +63,40 @@ namespace SistemaGestaoFinanceiraEmpresarial.Repositories
             _context.Funcionarios.Remove(funcionarioExistente);
             _context.SaveChanges();
         }
-       
+        public void Ativar(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException("O ID do funcionário é inválido.",nameof(id));
+            }
+            var funcionarioExistente = _context.Funcionarios.FirstOrDefault(f => f.Id == id);
+            if (funcionarioExistente == null)
+            {
+                throw new KeyNotFoundException("Funcionário não encontrado.");
+            }
+
+                funcionarioExistente.Ativo = true;
+            _context.SaveChanges();
+        }
+        public void Desativar(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException("O ID do funcionário é inválido.", nameof(id));
+            }
+            var funcionarioExistente = _context.Funcionarios.FirstOrDefault(f => f.Id == id);
+            if (funcionarioExistente == null)
+            {
+                throw new KeyNotFoundException("Funcionário não encontrado.");
+            }
+            funcionarioExistente.Ativo = false;
+            _context.SaveChanges();
+        }
+        public bool PossuiFuncionarios(int departamentoId)
+        {
+            return _context.Funcionarios
+                .Any(f => f.DepartamentoId == departamentoId);
+        }
+
     }
 }

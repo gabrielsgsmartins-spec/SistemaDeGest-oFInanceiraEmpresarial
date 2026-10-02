@@ -1,4 +1,5 @@
-﻿using SistemaDeGestãoFinanceiraEmpresarial;
+﻿using Microsoft.EntityFrameworkCore;
+using SistemaDeGestãoFinanceiraEmpresarial;
 using SistemaDeGestãoFinanceiraEmpresarial.Models;
 using SistemaDeGestãoFinanceiraEmpresarial.Models.Cadastros;
 using SistemaDeGestãoFinanceiraEmpresarial.Models.Comercial;
@@ -13,6 +14,7 @@ namespace SistemaGestaoFinanceiraEmpresarial.Models
         void Adicionar(OrcamentoModel orcamento);
         void Atualizar(OrcamentoModel orcamento);
         void Excluir(int id);
+         bool PossuiOrcamentos(int clienteId);
 
     }
 }

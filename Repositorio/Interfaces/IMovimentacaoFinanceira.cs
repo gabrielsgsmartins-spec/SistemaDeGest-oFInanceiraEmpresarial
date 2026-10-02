@@ -13,5 +13,7 @@ namespace SistemaGestaoFinanceiraEmpresarial.Models
         void Editar(MovimentacaoFinanceiraModel movimentacao);
         bool Excluir(MovimentacaoFinanceiraModel movimentacao);
         void Atualizar(MovimentacaoFinanceiraModel movimentacao);
+
+        bool PossuiOperacoesPendentes(int contaBancariaId);
     }
 }

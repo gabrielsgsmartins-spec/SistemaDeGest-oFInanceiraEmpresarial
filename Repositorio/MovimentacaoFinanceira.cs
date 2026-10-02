@@ -72,6 +72,9 @@ namespace SistemaGestaoFinanceiraEmpresarial.Repositories
             movimentacaoExistente.Descricao = movimentacao.Descricao;
             _context.SaveChanges();
         }
-
+        public bool PossuiOperacoesPendentes(int contaBancariaId)
+        {
+            return _context.MovimentacoesFinanceiras.Any(m => m.ContaBancariaId == contaBancariaId);
+        }
     }
 }

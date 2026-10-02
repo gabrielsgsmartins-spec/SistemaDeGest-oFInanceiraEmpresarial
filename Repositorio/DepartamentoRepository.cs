@@ -63,15 +63,13 @@ namespace SistemaGestaoFinanceiraEmpresarial.Repositories
             _context.SaveChanges();
         }
 
-        public bool Excluir(DepartamentoModel departamento)
+        public bool Excluir(int id)
         {
-            ArgumentNullException.ThrowIfNull(departamento);
-
-            if (departamento.Id <= 0)
+            if (id <= 0)
                 return false;
 
             var departamentoExistente = _context.Departamentos
-                .FirstOrDefault(d => d.Id == departamento.Id);
+                .FirstOrDefault(d => d.Id == id);
 
             if (departamentoExistente == null)
                 return false;
@@ -103,6 +101,11 @@ namespace SistemaGestaoFinanceiraEmpresarial.Repositories
             departamentoExistente.Ativo = departamento.Ativo;
 
             _context.SaveChanges();
+        }
+        public DepartamentoModel BuscarPorNome(string nome)
+        {
+            return _context.Departamentos
+                .FirstOrDefault(d => d.Nome == nome);
         }
     }
 }

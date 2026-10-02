@@ -15,9 +15,11 @@ namespace SistemaGestaoFinanceiraEmpresarial.Repositories
             _context = context;
         }
 
-        public List<CentroCustoModel> ListarTodos()
+        public IEnumerable<CentroCustoModel> ListarTodos()
         {
             return _context.CentrosCusto
+                .AsNoTracking()
+                .OrderBy(c => c.Nome)
                 .ToList();
         }
 
@@ -27,13 +29,19 @@ namespace SistemaGestaoFinanceiraEmpresarial.Repositories
                 .FirstOrDefault(c => c.Id == id);
         }
 
+        public CentroCustoModel? BuscarPorNome(string nome)
+        {
+            return _context.CentrosCusto
+                .FirstOrDefault(c => c.Nome == nome);
+        }
+
         public void Adicionar(CentroCustoModel centroCusto)
         {
             _context.CentrosCusto.Add(centroCusto);
             _context.SaveChanges();
         }
 
-        public void Editar(CentroCustoModel centroCusto)
+        public void Atualizar(CentroCustoModel centroCusto)
         {
             _context.CentrosCusto.Update(centroCusto);
             _context.SaveChanges();
@@ -41,12 +49,11 @@ namespace SistemaGestaoFinanceiraEmpresarial.Repositories
 
         public bool Excluir(int id)
         {
-            var centroCusto = _context.CentrosCusto.Find(id);
+            var centroCusto = _context.CentrosCusto
+                .FirstOrDefault(c => c.Id == id);
 
             if (centroCusto == null)
-            {
                 return false;
-            }
 
             _context.CentrosCusto.Remove(centroCusto);
             _context.SaveChanges();
@@ -54,10 +61,10 @@ namespace SistemaGestaoFinanceiraEmpresarial.Repositories
             return true;
         }
 
-        public void Atualizar(CentroCustoModel centroCusto)
+        public bool PossuiContasAPagar(int centroCustoId)
         {
-            _context.CentrosCusto.Update(centroCusto);
-            _context.SaveChanges();
+            return _context.ContasPagar
+                .Any(c => c.CentroCustoId == centroCustoId);
         }
     }
 }

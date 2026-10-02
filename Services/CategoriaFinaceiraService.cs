@@ -41,32 +41,45 @@ namespace SistemaGestaoFinanceiraEmpresarial.Services
                 throw new Exception($"Ocorreu um erro ao buscar a categoria financeira com ID {id}.", ex);
             }
         }
-        public void Cadastrar(CategoriaFinanceiraModel categoriaFinanceira)
+        public void Cadastrar(CategoriaFinanceiraModel categoria)
         {
-            try
+            if (categoria == null)
             {
-                if (categoriaFinanceira == null)
-                {
-                    throw new ArgumentNullException(nameof(categoriaFinanceira), "A categoria financeira não pode ser nula.");
-                }
-                if (string.IsNullOrWhiteSpace(categoriaFinanceira.Nome))
-                {
-                    throw new ArgumentException("O nome da categoria financeira não pode ser nulo ou vazio.", nameof(categoriaFinanceira.Nome));
-                }
-                if (categoriaFinanceira.Nome.Length > 100)
-                {
-                    throw new ArgumentException("O nome da categoria financeira não pode ter mais de 100 caracteres.", nameof(categoriaFinanceira.Nome));
-                }
-                if (_categoriaFinanceiraRepository.BuscarPorId(categoriaFinanceira.Id) != null)
-                {
-                    throw new ArgumentException("A categoria financeira já existe.", nameof(categoriaFinanceira.Id));
-                }
-                _categoriaFinanceiraRepository.Adicionar(categoriaFinanceira);
+                throw new ArgumentNullException(
+                    nameof(categoria),
+                    "A categoria financeira não pode ser nula.");
             }
-            catch (Exception ex)
+
+            if (string.IsNullOrWhiteSpace(categoria.Nome))
             {
-                throw new Exception("Ocorreu um erro ao cadastrar a categoria financeira.", ex);
+                throw new ArgumentException(
+                    "O nome da categoria é obrigatório.",
+                    nameof(categoria.Nome));
             }
+
+            categoria.Nome = categoria.Nome.Trim();
+
+            if (categoria.Nome.Length > 100)
+            {
+                throw new ArgumentException(
+                    "O nome da categoria não pode ter mais de 100 caracteres.",
+                    nameof(categoria.Nome));
+            }
+
+            if (!Enum.IsDefined(typeof(TipoCategoriaEnum),categoria.Tipo))
+            {
+                throw new ArgumentException("O tipo da categoria é inválido.",nameof(categoria.Tipo));
+            }
+            var categoriaExistente = _categoriaFinanceiraRepository.BuscarPorNome(categoria.Nome);
+
+            if (categoriaExistente != null)
+            {
+                throw new InvalidOperationException("Já existe uma categoria financeira com esse nome.");
+            }
+
+            categoria.Ativa = true;
+
+            _categoriaFinanceiraRepository.Adicionar(categoria);
         }
         public void Editar(CategoriaFinanceiraModel categoriaFinanceira)
         {
@@ -77,6 +90,11 @@ namespace SistemaGestaoFinanceiraEmpresarial.Services
                 {
                     throw new ArgumentException("A categoria financeira não existe.", nameof(categoriaFinanceira.Id));
                 }
+                if(string.IsNullOrWhiteSpace(categoriaFinanceira.Nome))
+                {
+                    throw new ArgumentException("O nome da categoria é obrigatório.", nameof(categoriaFinanceira.Nome));
+                }
+
                 _categoriaFinanceiraRepository.Editar(categoriaFinanceira);
             }
             catch (Exception ex)
@@ -84,22 +102,36 @@ namespace SistemaGestaoFinanceiraEmpresarial.Services
                 throw new Exception("Ocorreu um erro ao editar a categoria financeira.", ex);
             }
         }
-        public bool Excluir(int id)
+        public void Excluir(int id)
         {
-            try
+            if (id <= 0)
             {
-                var existingCategoria = _categoriaFinanceiraRepository.BuscarPorId(id);
-                if (existingCategoria == null)
-                {
-                    throw new ArgumentException("A categoria financeira não existe.", nameof(id));
-                }
-                _categoriaFinanceiraRepository.Excluir(id);
-                return true;
+                throw new ArgumentException("O ID da categoria deve ser maior que zero.",nameof(id));
             }
-            catch (Exception ex)
+
+            var categoria = _categoriaFinanceiraRepository.BuscarPorId(id);
+
+            if (categoria == null)
             {
-                throw new Exception($"Ocorreu um erro ao excluir a categoria financeira com ID {id}.", ex);
+                throw new KeyNotFoundException("Categoria financeira não encontrada.");
             }
+
+            bool possuiMovimentacoes =_categoriaFinanceiraRepository.PossuiMovimentacoes(id);
+
+            bool possuiContasAPagar =_categoriaFinanceiraRepository.PossuiContasAPagar(id);
+
+            bool possuiContasAReceber =_categoriaFinanceiraRepository.PossuiContasAReceber(id);
+
+            if (possuiMovimentacoes ||possuiContasAPagar ||possuiContasAReceber)
+            {
+                categoria.Ativa = false;
+
+                _categoriaFinanceiraRepository.Atualizar(categoria);
+
+                return;
+            }
+
+            _categoriaFinanceiraRepository.Excluir(id);
         }
     }
 }

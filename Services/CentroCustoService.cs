@@ -18,7 +18,7 @@ namespace SistemaGestaoFinanceiraEmpresarial.Services
         {
             try
             {
-                return _centroCustoRepository.ListarTodos();
+                return _centroCustoRepository.ListarTodos().ToList();
             }
             catch (Exception ex)
             {
@@ -56,6 +56,8 @@ namespace SistemaGestaoFinanceiraEmpresarial.Services
                 {
                     throw new ArgumentException("O nome do centro de custo não pode ter mais de 100 caracteres.", nameof(centroCusto.Nome));
                 }
+                centroCusto.Ativo = true;
+
                 _centroCustoRepository.Adicionar(centroCusto);
             }
             catch (Exception ex)
@@ -86,20 +88,26 @@ namespace SistemaGestaoFinanceiraEmpresarial.Services
                 throw new Exception("Ocorreu um erro ao atualizar o centro de custo.", ex);
             }
         }
-        public void Excluir(int id)
+        public bool Excluir(int id)
         {
-            try
+            if (id <= 0)
+                throw new ArgumentException("ID do centro de custo inválido.");
+
+            var centroCusto = _centroCustoRepository.BuscarPorId(id);
+
+            if (centroCusto == null)
+                throw new KeyNotFoundException("Centro de custo não encontrado.");
+
+            if (_centroCustoRepository.PossuiContasAPagar(id))
             {
-                if (id <= 0)
-                {
-                    throw new ArgumentException("O ID do centro de custo deve ser maior que zero.", nameof(id));
-                }
-                _centroCustoRepository.Excluir(id);
+                centroCusto.Ativo = false;
+
+                _centroCustoRepository.Atualizar(centroCusto);
+
+                return true;
             }
-            catch (Exception ex)
-            {
-                throw new Exception($"Ocorreu um erro ao excluir o centro de custo com ID {id}.", ex);
-            }
+
+            return _centroCustoRepository.Excluir(id);
         }
     }
 }

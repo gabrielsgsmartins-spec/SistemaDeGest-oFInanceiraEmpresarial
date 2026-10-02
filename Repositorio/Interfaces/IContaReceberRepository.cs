@@ -13,5 +13,7 @@ namespace SistemaGestaoFinanceiraEmpresarial.Models
         void Adicionar(ContaReceberModel contaReceber);
         void Atualizar(ContaReceberModel contaReceber);
         void Excluir(int id);
+
+        bool PossuiContasReceber(int clienteId);
     }
 }

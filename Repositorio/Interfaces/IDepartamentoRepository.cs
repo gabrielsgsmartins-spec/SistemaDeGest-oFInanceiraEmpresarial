@@ -11,7 +11,8 @@ namespace SistemaGestaoFinanceiraEmpresarial.Models
         DepartamentoModel? BuscarPorId(int id);
         void Cadastrar(DepartamentoModel departamento);
         void Editar(DepartamentoModel departamento);
-        bool Excluir(DepartamentoModel departamento);
+        bool Excluir(int id);
         void Atualizar(DepartamentoModel departamento);
+        DepartamentoModel? BuscarPorNome(string nome);
     }
 }

@@ -9,9 +9,12 @@ namespace SistemaGestaoFinanceiraEmpresarial.Services
     public class DepartamentoService
     {
         private readonly IDepartamentoRepository _departamentoRepository;
-        public DepartamentoService(IDepartamentoRepository departamentoRepository)
+        private readonly IFuncionarioRepository _funcionarioRepository;
+
+        public DepartamentoService(IDepartamentoRepository departamentoRepository, IFuncionarioRepository funcionarioRepository)
         {
             _departamentoRepository = departamentoRepository;
+            _funcionarioRepository = funcionarioRepository;
         }
 
         public List<DepartamentoModel> ListarTodos()
@@ -57,6 +60,11 @@ namespace SistemaGestaoFinanceiraEmpresarial.Services
                 {
                     throw new ArgumentException("O nome do departamento não pode ser nulo ou vazio.", nameof(departamento.Nome));
                 }
+                var departamentoExistente = _departamentoRepository.BuscarPorNome(departamento.Nome);
+                if (departamentoExistente != null)
+                {
+                    throw new InvalidOperationException($"Já existe um departamento com o nome '{departamento.Nome}'.");
+                }
                 if (departamento.Nome.Length > 100)
                 {
                     throw new ArgumentException("O nome do departamento não pode ter mais de 100 caracteres.", nameof(departamento.Nome));
@@ -100,24 +108,35 @@ namespace SistemaGestaoFinanceiraEmpresarial.Services
             }
         }
 
-        public bool Excluir(DepartamentoModel departamento)
+        public bool Excluir(int id)
         {
             try
             {
-                if (departamento == null)
+                if (id <= 0)
                 {
-                    throw new ArgumentNullException(nameof(departamento), "O departamento não pode ser nulo.");
+                    throw new ArgumentNullException(nameof(id), "O ID do departamento não pode ser nulo ou zero.");
                 }
-                if (departamento.Id <= 0)
+                var BuscarDepartamento = _departamentoRepository.BuscarPorId(id);
+
+                if (BuscarDepartamento == null)
                 {
-                    throw new ArgumentException("O ID do departamento deve ser maior que zero.", nameof(departamento.Id));
+                    throw new InvalidOperationException($"Não foi possível excluir o departamento com ID {id} porque ele não existe.");
                 }
-                return _departamentoRepository.Excluir(departamento);
+                if (id <= 0)
+                {
+                    throw new ArgumentException("O ID do departamento deve ser maior que zero.", nameof(id));
+                }
+
+                if (_funcionarioRepository.PossuiFuncionarios(id))
+                {
+                    throw new InvalidOperationException("Não é possível excluir o departamento porque existem funcionários vinculados a ele.");
+                }
+                return _departamentoRepository.Excluir(id);
             }
             catch (Exception ex)
             {
                 //Erro ao excluir o departamento
-                throw new Exception($"Ocorreu um erro ao excluir o departamento com ID {departamento.Id}.", ex);
+                throw new Exception($"Ocorreu um erro ao excluir o departamento com ID {id}.", ex);
             }
         }
         public List<DepartamentoModel> ListarAtivos()
@@ -147,6 +166,6 @@ namespace SistemaGestaoFinanceiraEmpresarial.Services
                 throw new Exception("Ocorreu um erro ao listar os departamentos inativos.", ex);
             }
         }
-     
+
     }
 }

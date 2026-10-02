@@ -65,7 +65,11 @@ namespace SistemaGestaoFinanceiraEmpresarial.Repositories
             _context.ContasBancarias.Remove(contaBancariaExistente);
             _context.SaveChanges();
         }
-
+        public bool PossuiContasReceber(int clienteId)
+        {
+            return _context.ContasReceber
+                .Any(c => c.ClienteId == clienteId);
+        }
 
     }
 }

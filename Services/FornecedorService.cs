@@ -9,9 +9,11 @@ namespace SistemaGestaoFinanceiraEmpresarial.Services
     public class FornecedorService
     {
         private readonly IFornecedorRepository _fornecedorRepository;
-        public FornecedorService(IFornecedorRepository fornecedorRepository)
+        private readonly IContasAPagarRepository _contasAPagarRepository;
+        public FornecedorService(IFornecedorRepository fornecedorRepository, IContasAPagarRepository contasAPagarRepository)
         {
             _fornecedorRepository = fornecedorRepository;
+            _contasAPagarRepository = contasAPagarRepository;
         }
 
         public List<FornecedorModel> ListarTodos()
@@ -57,7 +59,10 @@ namespace SistemaGestaoFinanceiraEmpresarial.Services
                 {
                     throw new ArgumentException("O nome fantasia do fornecedor não pode ter mais de 100 caracteres.", nameof(fornecedor.NomeFantasia));
                 }
-                if (_fornecedorRepository.BuscarPorId(fornecedor.Id) != null)
+
+                var fornecedorExistente = _fornecedorRepository.BuscarPorId(fornecedor.Id);
+
+                if (fornecedorExistente != null)
                 {
                     throw new InvalidOperationException("Já existe um fornecedor com o mesmo ID.");
                 }
@@ -69,27 +74,52 @@ namespace SistemaGestaoFinanceiraEmpresarial.Services
                 throw new Exception("Ocorreu um erro ao cadastrar o fornecedor.", ex);
             }
         }
-
         public void Editar(FornecedorModel fornecedor)
         {
-            try
+            if (fornecedor == null)
             {
-                if (fornecedor == null)
-                {
-                    throw new ArgumentNullException(nameof(fornecedor), "O fornecedor não pode ser nulo.");
-                }
-                if (fornecedor.Id <= 0)
-                {
-                    throw new ArgumentException("O ID do fornecedor deve ser maior que zero.", nameof(fornecedor.Id));
-                }
-               
-                _fornecedorRepository.Atualizar(fornecedor);
+                throw new ArgumentNullException(
+                    nameof(fornecedor),
+                    "O fornecedor não pode ser nulo.");
             }
-            catch (Exception ex)
+
+            if (fornecedor.Id <= 0)
             {
-                throw new Exception("Ocorreu um erro ao editar o fornecedor.", ex);
+                throw new ArgumentException(
+                    "O ID do fornecedor deve ser maior que zero.",
+                    nameof(fornecedor.Id));
             }
-        }
+
+            if (string.IsNullOrWhiteSpace(fornecedor.CNPJ))
+            {
+                throw new ArgumentException(
+                    "O CNPJ do fornecedor é obrigatório.",
+                    nameof(fornecedor.CNPJ));
+            }
+
+            if (fornecedor.CNPJ.Length != 14)
+            {
+                throw new ArgumentException(
+                    "O CNPJ do fornecedor deve ter exatamente 14 caracteres.",
+                    nameof(fornecedor.CNPJ));
+            }
+
+            var fornecedorExistente = _fornecedorRepository.BuscarPorId(fornecedor.Id);
+
+            if (fornecedorExistente == null)
+            {
+                throw new KeyNotFoundException(
+                    "Fornecedor não encontrado.");
+            }
+
+            if (fornecedorExistente.CNPJ != fornecedor.CNPJ)
+            {
+                throw new InvalidOperationException(
+                    "Não é permitido alterar o CNPJ do fornecedor.");
+            }
+
+            _fornecedorRepository.Atualizar(fornecedor);
+        } 
 
         public bool Excluir(int id)
         {
@@ -102,6 +132,12 @@ namespace SistemaGestaoFinanceiraEmpresarial.Services
                 if (_fornecedorRepository.BuscarPorId(id) == null)
                 {
                     throw new KeyNotFoundException($"Fornecedor com ID {id} não encontrado.");
+                }
+                var PossuiCOntasAPagar = _contasAPagarRepository.BuscarPorId(id);
+
+                if (PossuiCOntasAPagar != null)
+                {
+                    throw new InvalidOperationException($"Não é possível excluir o fornecedor com ID {id} porque existem contas a pagar associadas a ele.");
                 }
 
                 return _fornecedorRepository.Excluir(id);

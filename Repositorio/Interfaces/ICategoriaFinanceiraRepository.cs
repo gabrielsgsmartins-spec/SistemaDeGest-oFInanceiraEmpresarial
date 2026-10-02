@@ -13,5 +13,9 @@ namespace SistemaGestaoFinanceiraEmpresarial.Models
         void Editar(CategoriaFinanceiraModel categoria);
         void Excluir(int id);
         void Atualizar(CategoriaFinanceiraModel categoria);
+        CategoriaFinanceiraModel BuscarPorNome(string nome);
+        bool PossuiMovimentacoes(int categoriaId);
+        bool PossuiContasAPagar(int categoriaId);
+        bool PossuiContasAReceber(int categoriaId);
     }
 }

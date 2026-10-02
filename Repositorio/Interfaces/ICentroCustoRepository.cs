@@ -1,18 +1,21 @@
-﻿using SistemaDeGestãoFinanceiraEmpresarial;
-using SistemaDeGestãoFinanceiraEmpresarial.Models;
-using SistemaDeGestãoFinanceiraEmpresarial.Models.Financeiro;
+﻿using SistemaDeGestãoFinanceiraEmpresarial.Models.Financeiro;
 
-
-namespace SistemaGestaoFinanceiraEmpresarial.Models
+namespace SistemaGestaoFinanceiraEmpresarial.Repositories.Interfaces
 {
     public interface ICentroCustoRepository
     {
-        List<CentroCustoModel> ListarTodos();
+        IEnumerable<CentroCustoModel> ListarTodos();
+
         CentroCustoModel? BuscarPorId(int id);
+
+        CentroCustoModel? BuscarPorNome(string nome);
+
         void Adicionar(CentroCustoModel centroCusto);
-        void Editar(CentroCustoModel centroCusto);
-        bool Excluir(int id);
+
         void Atualizar(CentroCustoModel centroCusto);
 
+        bool Excluir(int id);
+
+        bool PossuiContasAPagar(int centroCustoId);
     }
 }

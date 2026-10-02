@@ -56,5 +56,10 @@ namespace SistemaGestaoFinanceiraEmpresarial
             _context.Orcamentos.Remove(orcamentoExistente);
             _context.SaveChanges();
         }
+        public bool PossuiOrcamentos(int clienteId)
+        {
+            return _context.Orcamentos
+                .Any(o => o.ClienteId == clienteId);
+        }
     }
 }
